@@ -13,7 +13,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 	"path"
@@ -79,7 +78,7 @@ func magicNumber(reader *bufio.Reader, offset int) (string, error) {
 func Unpack(reader io.Reader, destPath string) (string, error) {
 	var err error
 	if destPath == "" {
-		destPath, err = ioutil.TempDir(os.TempDir(), "unpackit-")
+		destPath, err = os.MkdirTemp(os.TempDir(), "unpackit-")
 		if err != nil {
 			return "", err
 		}
@@ -188,7 +187,7 @@ func Unzip(r io.Reader, destPath string) (string, error) {
 		}
 		zr, err = zip.NewReader(f, fstat.Size())
 	} else {
-		data, err := ioutil.ReadAll(r)
+		data, err := io.ReadAll(r)
 		if err != nil {
 			return "", err
 		}
