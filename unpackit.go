@@ -238,7 +238,7 @@ func unzipFile(f *zip.File, destPath string) error {
 	fileDir := filepath.Dir(destPath)
 	_, err = os.Lstat(fileDir)
 	if err != nil {
-		if err := os.MkdirAll(fileDir, 0700); err != nil {
+		if err := os.MkdirAll(fileDir, 0755); err != nil {
 			return err
 		}
 	}
